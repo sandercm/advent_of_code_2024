@@ -1,3 +1,5 @@
+use std::time::{SystemTime, UNIX_EPOCH};
+
 // None if valid, otherwise return first invalid index
 fn find_first_invalid_index(line: &Vec<i64>) -> Option<usize> {
     let increasing = line[0] < line[1];
@@ -90,9 +92,12 @@ fn main() {
     let input = include_str!("input/input.txt");
 
     // start easy
-
+    let start = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     let safe = input.lines().into_iter().map(check_line_easy).filter(|bool| {*bool}).count();
-    println!("so many safe lines easy {}", safe);
+    let end = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+    println!("so many safe lines easy {} took: {:#?}", safe, end-start);
+    let start = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     let safe = input.lines().into_iter().map(check_line_hard).filter(|bool| {*bool}).count();
-    println!("so many safe lines hard {}", safe);
+    let end = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+    println!("so many safe lines hard {} took: {:#?}", safe, end-start);
 }
