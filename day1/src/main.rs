@@ -1,11 +1,5 @@
-use std::collections::{BTreeMap, HashMap};
-
-fn find_occurance(key: i64, list: &Vec<i64>, cache: &mut BTreeMap<i64, i64>) -> i64 {
-    if cache.contains_key(&key) {
-        cache.get(&key).unwrap().clone()
-    } else {
-        list.iter().filter(|num|{**num == key}).count() as i64
-    }
+fn find_occurance(key: i64, list: &Vec<i64>) -> i64 {
+    list.iter().filter(|num|{**num == key}).count() as i64
 }
 
 fn handle_easy_input(input: &str) {
@@ -35,10 +29,9 @@ fn handle_easy_input(input: &str) {
     println!("{}", difference_sum);
 
     // start of hard
-    let mut cache = BTreeMap::new(); 
     let mut simularity = 0;
     for key in left {
-        simularity += key * find_occurance(key, &right, &mut cache);
+        simularity += key * find_occurance(key, &right);
     }
 
     println!("{}", simularity);
